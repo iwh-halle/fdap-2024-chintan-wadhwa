@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deribit Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>BTC-PERPETUAL Historical Data</h1>
+    <canvas id="deribitChart" width="400" height="200"></canvas>
+    <script>
+        // Fetch the data from the Django view
+        fetch("/api/deribit/")
+            .then(response => response.json())
+            .then(data => {
+                const labels = data.map(d => new Date(d.ticks).toLocaleDateString());
+                const prices = data.map(d => d.close);
+
+                const ctx = document.getElementById('deribitChart').getContext('2d');
+                const chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'BTC-PERPETUAL Closing Prices',
+                            data: prices,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                type: 'time',
+                                time: {
+                                    unit: 'day'
+                                }
+                            },
+                            y: {
+                                beginAtZero: false
+                            }
+                        }
+                    }
+                });
+            });
+    </script>
+</body>
+</html>

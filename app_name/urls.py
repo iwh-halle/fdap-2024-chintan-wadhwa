@@ -2,5 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('deribit/', views.deribit_data, name='deribit_data'),  # Define API endpoint
+    path('', views.home, name='home'),  # Home page
+    path('deribit/', views.deribit_data, name='deribit_data'),  # API endpoint
+    path('chart/', views.chart_view, name='chart_view'),  # Chart page
 ]

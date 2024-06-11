@@ -1,14 +1,17 @@
+from django.shortcuts import render
 from django.http import JsonResponse
 import requests
 import time
 
+def home(request):
+    return render(request, 'home.html', {})
+
 def deribit_data(request):
-    # Deribit API URL
     url = "https://www.deribit.com/api/v2/public/get_tradingview_chart_data"
     instrument_name = "BTC-PERPETUAL"
-    resolution = "60"  # 60 minutes
+    resolution = "60"
     current_time = int(time.time() * 1000)
-    start_time = current_time - (3 * 365 * 24 * 60 * 60 * 1000)  # 3 years ago
+    start_time = current_time - (3 * 365 * 24 * 60 * 60 * 1000)
 
     params = {
         "instrument_name": instrument_name,
@@ -24,3 +27,6 @@ def deribit_data(request):
         return JsonResponse(data, safe=False)
     else:
         return JsonResponse({"error": "Could not fetch data"}, status=response.status_code)
+
+def chart_view(request):
+    return render(request, 'chart.html', {})
