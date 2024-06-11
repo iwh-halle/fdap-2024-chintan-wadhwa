@@ -8,7 +8,6 @@
     <h1>BTC-PERPETUAL Historical Data</h1>
     <canvas id="deribitChart" width="400" height="200"></canvas>
     <script>
-        // Fetch the data from the Django view
         fetch("/api/deribit/")
             .then(response => response.json())
             .then(data => {

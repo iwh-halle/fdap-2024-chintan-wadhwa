@@ -6,6 +6,9 @@ import time
 def home(request):
     return render(request, 'home.html', {})
 
+def chart_view(request):
+    return render(request, 'chart.html', {})
+
 def deribit_data(request):
     url = "https://www.deribit.com/api/v2/public/get_tradingview_chart_data"
     instrument_name = "BTC-PERPETUAL"
@@ -27,6 +30,3 @@ def deribit_data(request):
         return JsonResponse(data, safe=False)
     else:
         return JsonResponse({"error": "Could not fetch data"}, status=response.status_code)
-
-def chart_view(request):
-    return render(request, 'chart.html', {})
